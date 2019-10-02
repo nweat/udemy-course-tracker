@@ -1,0 +1,16 @@
+{
+  "name": "udemy-course-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "start": "serverless invoke local --function udemyCourseTracker"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.1.0",
+    "twilio": "^3.35.0"
+  }
+}

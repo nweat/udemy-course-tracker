@@ -1,6 +1,9 @@
 const express = require("express")
 const bodyParser = require("body-parser")
-const app = express().use(bodyParser.json())
+const app = express()
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 // Creates the endpoint for our webhook
 app.post("/webhook", (req, res) => {
@@ -46,6 +49,10 @@ app.get("/webhook", (req, res) => {
       res.sendStatus(403)
     }
   }
+})
+
+app.get("/", (req, res) => {
+  res.status(200).send("Success")
 })
 
 app.listen(process.env.port || 1337, () => console.log("webhook is listening"))

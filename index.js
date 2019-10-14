@@ -1,9 +1,39 @@
 const express = require("express")
 const bodyParser = require("body-parser")
+const request = require("request")
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
+
+const sendMessage = (sender, message) => {
+  // Construct the message body
+  let request_body = {
+    recipient: {
+      id: sender
+    },
+    message: `You sent the message: "${message}". Now send me an image!`
+  }
+
+  // Send the HTTP request to the Messenger Platform
+  request(
+    {
+      uri: "https://graph.facebook.com/v2.6/me/messages",
+      qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+      method: "POST",
+      json: request_body
+    },
+    (err, res, body) => {
+      if (!err) {
+        console.log("message sent!")
+      } else {
+        console.error("Unable to send message:" + err)
+      }
+    }
+  )
+}
 
 // Creates the endpoint for our webhook
 app.post("/webhook", (req, res) => {
@@ -15,8 +45,14 @@ app.post("/webhook", (req, res) => {
     body.entry.forEach(function(entry) {
       // Gets the message. entry.messaging is an array, but
       // will only ever contain one message, so we get index 0
+      console.log(entry)
       let webhook_event = entry.messaging[0]
-      console.log(webhook_event)
+      let sender_psid = webhook_event.sender.id
+      //console.log("Sender PSID: " + sender_psid)
+
+      if (webhook_event.message) {
+        sendMessage(sender_psid, webhook_event.message)
+      }
     })
 
     // Returns a '200 OK' response to all requests
@@ -30,7 +66,7 @@ app.post("/webhook", (req, res) => {
 // Adds support for GET requests to our webhook
 app.get("/webhook", (req, res) => {
   // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = "TESTING"
+  const VERIFY_TOKEN = process.env.VERIFY_TOKEN
 
   // Parse the query params
   let mode = req.query["hub.mode"]

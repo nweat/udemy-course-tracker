@@ -55,4 +55,4 @@ app.get("/", (req, res) => {
   res.status(200).send("Success")
 })
 
-app.listen(process.env.port || 1337, () => console.log("webhook is listening"))
+app.listen(process.env.PORT || 8000, () => console.log("webhook is listening"))

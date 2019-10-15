@@ -16,17 +16,24 @@ app.get("/mybot", function(req, res) {
   res.send("Wrong token!")
 })
 
-app.post("/webhook/", function(req, res) {
-  var messaging_events = req.body.entry[0].messaging
-  for (var i = 0; i < messaging_events.length; i++) {
-    var event = req.body.entry[0].messaging[i]
-    var sender = event.sender.id
-    if (event.message && event.message.text) {
-      var text = event.message.text
-      sendTextMessage(sender, text + "!")
+app.post("/webhook", function(req, res) {
+  let body = req.body
+
+  body.entry.forEach(function(entry) {
+    // Gets the message. entry.messaging is an array, but
+    // will only ever contain one message, so we get index 0
+    console.log(entry)
+    let webhook_event = entry.messaging[0]
+    let sender_psid = webhook_event.sender.id
+    //console.log("Sender PSID: " + sender_psid)
+
+    if (webhook_event.message) {
+      sendTextMessage(sender_psid, webhook_event.message)
     }
-  }
-  res.sendStatus(200)
+  })
+
+  // Returns a '200 OK' response to all requests
+  res.status(200).send("EVENT_RECEIVED")
 })
 
 function sendTextMessage(sender, text) {

@@ -55,11 +55,10 @@ function sendTextMessage(sender, text) {
       }
     },
     function(error, response, body) {
-      if (!error) {
-        console.log("message sent from fb messenger!")
-        console.log(body)
-      } else {
-        console.error("Unable to send message:" + error)
+      if (error) {
+        console.log("Error:", error)
+      } else if (response.body.error) {
+        console.log("Error: ", response.body.error)
       }
     }
   )

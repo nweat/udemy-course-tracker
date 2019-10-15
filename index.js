@@ -23,13 +23,13 @@ app.post("/webhook", function(req, res) {
     // Gets the message. entry.messaging is an array, but
     // will only ever contain one message, so we get index 0
     console.log(entry)
-    //let webhook_event = entry.messaging[0]
-    //let sender_psid = webhook_event.sender.id
-    //console.log("Sender PSID: " + sender_psid)
+    let webhook_event = entry.messaging[0]
+    let sender_psid = webhook_event.sender.id
+    console.log("Sender PSID: " + sender_psid)
 
-    //if (webhook_event.message) {
-    // sendTextMessage(sender_psid, webhook_event.message)
-    //}
+    if (webhook_event.message) {
+      sendTextMessage(sender_psid, webhook_event.message)
+    }
   })
 
   // Returns a '200 OK' response to all requests

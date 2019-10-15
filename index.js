@@ -27,8 +27,9 @@ app.post("/webhook", function(req, res) {
     let sender_psid = webhook_event.sender.id
     console.log("Sender PSID: " + sender_psid)
 
-    if (webhook_event.message) {
-      sendTextMessage(sender_psid, webhook_event.message)
+    if (webhook_event.message && webhook_event.message.text) {
+      let text = webhook_event.message.text
+      sendTextMessage(sender_psid, text + "!")
     }
   })
 

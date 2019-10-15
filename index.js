@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN
 
-app.get("/mybot", function(req, res) {
+app.get("/webhook", function(req, res) {
   if (req.query["hub.verify_token"] === VERIFY_TOKEN) {
     res.send(req.query["hub.challenge"])
   }

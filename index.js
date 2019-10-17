@@ -32,26 +32,22 @@ app.post("/webhook", function(req, res) {
     if (webhook_event.message && webhook_event.message.text) {
       let text = webhook_event.message.text
       if (text.toUpperCase() === "UDEMY") {
-        /*
         try {
           ;(async () => {
             const message = await udemyUpdates()
             console.log(message)
             sendTextMessage(sender_psid, message)
-            // Returns a '200 OK' response to all requests
-            res.status(200).send("EVENT_RECEIVED")
           })()
         } catch (e) {
           res.status(500).json({ success: false, error: e })
         }
-        */
-        sendTextMessage(sender_psid, "send udemy udpates")
-        res.status(200).send("EVENT_RECEIVED")
       } else {
         sendTextMessage(sender_psid, "Bare with me Nik.. I only know about udemy :/")
       }
     }
   })
+  // Returns a '200 OK' response to all requests
+  res.status(200).send("EVENT_RECEIVED")
 })
 
 function sendTextMessage(sender, text) {

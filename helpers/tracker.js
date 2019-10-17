@@ -1,8 +1,8 @@
 const { format, isAfter } = require("date-fns")
 const MongoClient = require("mongodb").MongoClient
 
-const dotenv = require("dotenv")
-dotenv.config()
+//const dotenv = require("dotenv")
+//dotenv.config()
 
 const { getDetails } = require("./udemy")
 

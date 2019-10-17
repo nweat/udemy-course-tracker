@@ -1,10 +1,7 @@
 "use strict"
 
-const dotenv = require("dotenv")
-dotenv.config()
+const { udemyUpdates } = require("./helpers/tracker")
 
-const { getCourseData } = require("./helpers/api")
-
-module.exports.udemyCourseTracker = (event, context, callback) => {
-  callback(null, getCourseData(922484))
+module.exports.udemyCourseTracker = async (event, context, callback) => {
+  callback(null, udemyUpdates())
 }

@@ -34,7 +34,11 @@ app.post("/webhook", function(req, res) {
         ;(async () => {
           const message = await udemyUpdates()
           console.log("message: " + message)
-          sendTextMessage(sender_psid, message)
+          if (message === "") {
+            sendTextMessage(sender_psid, "No Udemy Updates. Check back later mate.. :)")
+          } else {
+            sendTextMessage(sender_psid, message)
+          }
         })()
       } else {
         sendTextMessage(sender_psid, "Bare with me Nik.. I only know about udemy :/")

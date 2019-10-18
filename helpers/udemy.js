@@ -9,7 +9,7 @@ const instance = axios.create({
 })
 
 const getDetails = async id => {
-  return await instance.get(`courses/${id}?fields[course]=discount,url,last_update_date`)
+  return await instance.get(`courses/${id}?fields[course]=discount,url,last_update_date,price`)
 }
 
 module.exports = {

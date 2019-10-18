@@ -32,9 +32,8 @@ const udemyUpdates = async () => {
                 if (item) {
                   message += `Course: ${d.course_title} \n`
                   message += `URL: https://www.udemy.com${d.url} \n`
-                  message += `Original price:  ${d.discount.list_price.price_string} \n`
-                  message += `Discount was:  ${d.discount_price} \n`
-                  message += `And Now is:  ${d.discount.price.price_string} \n\n`
+                  message += `Original price:  ${d.price} \n`
+                  message += `Discounted price:  ${d.discount.price.price_string} \n\n`
                 }
               })
             }
@@ -73,6 +72,8 @@ const udemyUpdates = async () => {
 
   return message
 }
+
+udemyUpdates()
 
 module.exports = {
   udemyUpdates

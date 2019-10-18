@@ -73,8 +73,6 @@ const udemyUpdates = async () => {
   return message
 }
 
-udemyUpdates()
-
 module.exports = {
   udemyUpdates
 }

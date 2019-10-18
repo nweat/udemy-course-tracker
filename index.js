@@ -26,15 +26,11 @@ app.post("/webhook", function(req, res) {
     // will only ever contain one message, so we get index 0
     let webhook_event = entry.messaging[0]
     let sender_psid = webhook_event.sender.id
-    console.log("Sender PSID: " + sender_psid)
 
     if (webhook_event.message && webhook_event.message.text) {
       let text = webhook_event.message.text.toLowerCase()
-      if (text === "udemy") {
-        sendTextMessage(sender_psid, "Send udemy udpates :) ")
-      } else {
-        sendTextMessage(sender_psid, "Bare with me Nik.. I only know about udemy :/")
-      }
+      console.log("Sender PSID: " + sender_psid + " sent msg " + text)
+      sendTextMessage(sender, text + "!")
     }
   })
   // Returns a '200 OK' response to all requests

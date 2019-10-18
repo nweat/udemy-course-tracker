@@ -30,7 +30,7 @@ app.post("/webhook", function(req, res) {
     if (webhook_event.message && webhook_event.message.text) {
       let text = webhook_event.message.text.toLowerCase()
       console.log("Sender PSID: " + sender_psid + " sent msg " + text)
-      sendTextMessage(sender, text + "!")
+      sendTextMessage(sender_psid, text + "!")
     }
   })
   // Returns a '200 OK' response to all requests

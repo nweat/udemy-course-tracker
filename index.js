@@ -29,13 +29,9 @@ app.post("/webhook", function(req, res) {
     console.log("Sender PSID: " + sender_psid)
 
     if (webhook_event.message && webhook_event.message.text) {
-      let text = webhook_event.message.text
-      if (text.toUpperCase() === "UDEMY") {
-        ;(async () => {
-          const message = await udemyUpdates()
-          console.log("message: " + message)
-          sendTextMessage(sender_psid, message)
-        })()
+      let text = webhook_event.message.text.toLowerCase()
+      if (text === "udemy") {
+        sendTextMessage(sender_psid, "Send udemy udpates :) ")
       } else {
         sendTextMessage(sender_psid, "Bare with me Nik.. I only know about udemy :/")
       }

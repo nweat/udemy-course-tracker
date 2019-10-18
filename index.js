@@ -24,7 +24,6 @@ app.post("/webhook", function(req, res) {
   body.entry.forEach(function(entry) {
     // Gets the message. entry.messaging is an array, but
     // will only ever contain one message, so we get index 0
-    console.log(entry)
     let webhook_event = entry.messaging[0]
     let sender_psid = webhook_event.sender.id
     console.log("Sender PSID: " + sender_psid)
@@ -32,15 +31,12 @@ app.post("/webhook", function(req, res) {
     if (webhook_event.message && webhook_event.message.text) {
       let text = webhook_event.message.text
       if (text.toUpperCase() === "UDEMY") {
-        try {
-          ;(async () => {
-            const message = await udemyUpdates()
-            console.log(message)
-            sendTextMessage(sender_psid, message)
-          })()
-        } catch (e) {
-          res.status(500).json({ success: false, error: e })
-        }
+        const getudemyUpdates = (async () => {
+          const message = await udemyUpdates()
+          console.log("message: " + message)
+          sendTextMessage(sender_psid, message)
+        })()
+        getudemyUpdates()
       } else {
         sendTextMessage(sender_psid, "Bare with me Nik.. I only know about udemy :/")
       }

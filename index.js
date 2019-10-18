@@ -31,12 +31,11 @@ app.post("/webhook", function(req, res) {
     if (webhook_event.message && webhook_event.message.text) {
       let text = webhook_event.message.text
       if (text.toUpperCase() === "UDEMY") {
-        const getudemyUpdates = (async () => {
+        ;(async () => {
           const message = await udemyUpdates()
           console.log("message: " + message)
           sendTextMessage(sender_psid, message)
         })()
-        getudemyUpdates()
       } else {
         sendTextMessage(sender_psid, "Bare with me Nik.. I only know about udemy :/")
       }

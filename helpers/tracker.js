@@ -1,8 +1,8 @@
 const { format, isAfter } = require("date-fns")
 const MongoClient = require("mongodb").MongoClient
 
-//const dotenv = require("dotenv")
-//dotenv.config()
+const dotenv = require("dotenv")
+dotenv.config()
 
 const { getDetails } = require("./udemy")
 
@@ -26,7 +26,6 @@ const udemyUpdates = async () => {
     .then(data => {
       data.forEach(async d => {
         if (!d.bought) {
-          message += `Course: ${d.course_title} not bot yet \n`
           if (d.discount != null && d.discount.has_discount_saving) {
             if (d.discount.price.price_string != d.discount_price) {
               await collection.updateOne({ course_ID: d.course_ID }, { $set: { discount_price: d.discount.price.price_string } }, (err, item) => {

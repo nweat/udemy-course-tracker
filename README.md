@@ -10,7 +10,7 @@ Just a litte side project.. I was bored!
 
 - Udemy API
 - MongoDB Atlas (used to store courses and keep track of updates from udemy)
-- Webhook built with Node/ExpressJS (Hosted on Heroku)
+- API built with Node.js/Express (Hosted on Heroku)
 
 # Wanna deploy with serverless?
 
